@@ -72,6 +72,42 @@ a { color: inherit; text-decoration: none; }
 }
 .menu-button { display: none; }
 
+.welcome-message {
+  max-width: 1240px;
+  margin: 24px auto 18px;
+  padding: 24px 16px;
+  border-radius: 14px;
+  background: #091d46;
+  text-align: center;
+}
+.promotion-label {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 12px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--lime);
+  color: #091d46;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.welcome-message h1 {
+  margin: 0;
+  color: var(--white);
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+.promotion-tagline {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, .9);
+  font-size: clamp(14px, 1.8vw, 18px);
+  font-weight: 600;
+  line-height: 1.5;
+}
 .promotion-banner {
   width: 100%;
   background: #091d46;
