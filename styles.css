@@ -109,7 +109,9 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.5;
 }
 .promotion-banner {
-  width: 100%;
+  width: 92%;
+  max-width: 1240px;
+  margin: 0 auto;
   background: #091d46;
   line-height: 0;
 }
