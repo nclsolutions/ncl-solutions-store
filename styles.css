@@ -43,8 +43,16 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   gap: 10px;
 }
+.brand-copy { display: grid; gap: 1px; }
 .brand-name { font-size: 20px; font-weight: 800; letter-spacing: -.7px; }
 .brand-name strong { color: var(--green); }
+.brand-tagline {
+  color: var(--ink);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.15px;
+  line-height: 1.2;
+}
 .brand-logo {
   width: 64px;
   height: 48px;
@@ -85,6 +93,9 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: -1px;
   line-height: 1.1;
 }
+.welcome-brand-ncl { color: var(--green); }
+.welcome-brand-solutions { color: var(--ink); }
+.welcome-message .category-search { margin: 18px auto 0; }
 .promotion-banner {
   width: 92%;
   max-width: 1240px;
@@ -342,6 +353,7 @@ footer {
   .site-header { height: 68px; }
   .header-inner { padding: 0 12px; }
   .brand-name { font-size: 14px; }
+  .brand-tagline { font-size: 7px; letter-spacing: .9px; }
   .brand-logo { width: 38px; height: 38px; border-radius: 8px; }
   .hero { min-height: 0; padding: 36px 18px 24px; }
   .eyebrow { font-size: 10px; }

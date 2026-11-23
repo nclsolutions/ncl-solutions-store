@@ -15,14 +15,24 @@
     <div class="header-inner">
       <a class="brand" href="#home" aria-label="NCL Solutions home">
         <img class="brand-logo" src="assets/brand-banner.jpg" alt="NCL Solutions logo">
-        <span class="brand-name">NCL <strong>SOLUTIONS</strong></span>
+        <span class="brand-copy">
+          <span class="brand-name">NCL <strong>SOLUTIONS</strong></span>
+          <span class="brand-tagline">YOUR TECH, YOUR WAY</span>
+        </span>
       </a>
     </div>
   </header>
 
   <main>
     <section class="welcome-message" aria-labelledby="welcome-heading">
-      <h1 id="welcome-heading">Welcome Back</h1>
+      <h1 id="welcome-heading"><span class="welcome-brand-ncl">NCL</span> <span class="welcome-brand-solutions">SOLUTIONS</span></h1>
+      <label class="category-search">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"></circle>
+          <path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+        <input id="category-search" type="search" aria-label="Search categories" placeholder="Search categories..." autocomplete="off">
+      </label>
     </section>
 
     <section class="promotion-banner" id="home" aria-label="NCL Solutions promotions">
@@ -36,13 +46,6 @@
             <p class="categories-eyebrow">FIND YOUR NEXT FAVOURITE</p>
             <h2 id="categories-heading">Shop by category</h2>
           </div>
-          <label class="category-search">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"></circle>
-              <path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
-            </svg>
-            <input id="category-search" type="search" aria-label="Search categories" placeholder="Search categories..." autocomplete="off">
-          </label>
         </div>
         <p class="category-empty" id="category-empty" role="status" hidden>No matching categories found.</p>
         <div class="category-grid" id="category-grid">
