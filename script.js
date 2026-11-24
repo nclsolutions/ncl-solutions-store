@@ -100,6 +100,16 @@ const products = {
     name: "Samsung Galaxy A07",
     specification: "6 GB RAM / 128 GB storage",
     price: 66490
+  },
+  "galaxy-a17-5g-8-128": {
+    name: "Samsung Galaxy A17 5G",
+    specification: "8 GB RAM / 128 GB storage",
+    price: 95490
+  },
+  "galaxy-a17-5g-8-256": {
+    name: "Samsung Galaxy A17 5G",
+    specification: "8 GB RAM / 256 GB storage",
+    price: 119990
   }
 };
 const cart = new Map();
