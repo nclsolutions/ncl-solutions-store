@@ -3,7 +3,10 @@ const categoryGrid = document.querySelector("#category-grid");
 const emptyMessage = document.querySelector("#category-empty");
 const smartPhonesCategory = document.querySelector("#smart-phones-category");
 const smartPhonesProducts = document.querySelector("#smart-phones-products");
+const casesCoversCategory = document.querySelector("#cases-covers-category");
+const casesCoversProducts = document.querySelector("#cases-covers-products");
 const closeSmartPhonesButton = document.querySelector("#close-smart-phones");
+const closeCasesCoversButton = document.querySelector("#close-cases-covers");
 const phoneBrandList = document.querySelector("#phone-brand-list");
 const phoneBrandButtons = Array.from(phoneBrandList.querySelectorAll(".phone-brand-button"));
 const brandProducts = document.querySelector("#brand-products");
@@ -11,7 +14,13 @@ const selectedBrandHeading = document.querySelector("#selected-brand-heading");
 const brandEmptyMessage = document.querySelector("#brand-empty-message");
 const phoneProductGrid = document.querySelector("#phone-product-grid");
 const backToPhoneBrandsButton = document.querySelector("#back-to-phone-brands");
-const productAddButtons = Array.from(document.querySelectorAll(".product-add-button"));
+const caseBrandList = document.querySelector("#case-brand-list");
+const samsungCaseBrandButton = document.querySelector("#samsung-case-brand");
+const caseBrandProducts = document.querySelector("#case-brand-products");
+const selectedCaseBrandHeading = document.querySelector("#selected-case-brand-heading");
+const caseProductGrid = document.querySelector("#case-product-grid");
+const backToCaseBrandsButton = document.querySelector("#back-to-case-brands");
+const productAddButtons = Array.from(document.querySelectorAll("button.product-add-button"));
 let selectedBrandButton = null;
 
 if (!categorySearch || !categoryGrid || !emptyMessage) {
@@ -20,6 +29,68 @@ if (!categorySearch || !categoryGrid || !emptyMessage) {
 
 const categoryCards = categoryGrid.querySelectorAll(".category-card");
 const productCards = Array.from(phoneProductGrid.querySelectorAll(".product-card"));
+const samsungCaseModels = [
+  { name: "Galaxy A57 5G" },
+  { name: "Galaxy A37 5G" },
+  { name: "Galaxy A27 5G" },
+  { name: "Galaxy A17 5G" },
+  { name: "Galaxy A17 4G" },
+  { name: "Galaxy A36 5G" },
+  { name: "Galaxy A06 5G" },
+  { name: "Galaxy A07 4G" },
+  { name: "Galaxy A56 5G" },
+  { name: "Galaxy A26 5G" },
+  { name: "Galaxy M17" },
+  { name: "Galaxy S26" },
+  { name: "Galaxy S26+ 5G" },
+  { name: "Galaxy S26 Ultra" },
+  { name: "Galaxy S25" },
+  { name: "Galaxy S25+ 5G" },
+  { name: "Galaxy S25 FE 5G" },
+  { name: "Galaxy S25 Ultra" },
+  { name: "Galaxy Z Fold7 5G", stockOut: true },
+  { name: "Galaxy Z Flip7 5G" }
+];
+
+samsungCaseModels.forEach((model) => {
+  const card = document.createElement("article");
+  card.className = "product-card";
+  card.dataset.brand = "Samsung";
+
+  const image = document.createElement("img");
+  image.src = "assets/phone-cases.jpg";
+  image.alt = `Samsung ${model.name} back-cover styles`;
+
+  const details = document.createElement("div");
+  details.className = "product-card-details";
+  const eyebrow = document.createElement("p");
+  eyebrow.className = "product-card-eyebrow";
+  eyebrow.textContent = "SAMSUNG BACK COVER";
+  const stockStatus = document.createElement("p");
+  stockStatus.className = "product-stock-status";
+  stockStatus.textContent = "Stock Out";
+  stockStatus.hidden = !model.stockOut;
+  const name = document.createElement("h4");
+  name.textContent = model.name;
+  const specification = document.createElement("p");
+  specification.className = "product-specification";
+  specification.textContent = `Back cover made for Samsung ${model.name}`;
+  const price = document.createElement("p");
+  price.className = "product-price";
+  price.textContent = "LKR 500–1,000";
+  const enquiry = document.createElement("a");
+  enquiry.className = "product-add-button";
+  enquiry.href = `https://wa.me/94779273876?text=${encodeURIComponent(`Hi, I’m interested in a Samsung ${model.name} back cover. Please confirm the available styles and exact price.`)}`;
+  enquiry.target = "_blank";
+  enquiry.rel = "noopener noreferrer";
+  enquiry.textContent = "Enquire on WhatsApp";
+
+  details.append(eyebrow, stockStatus, name, specification, price, enquiry);
+  card.append(image, details);
+  caseProductGrid.appendChild(card);
+});
+
+const caseProductCards = Array.from(caseProductGrid.querySelectorAll(".product-card"));
 
 function resetPhoneBrandSelection() {
   phoneBrandList.hidden = false;
@@ -37,6 +108,23 @@ function setSmartPhonesOpen(isOpen) {
   smartPhonesCategory.setAttribute("aria-expanded", String(isOpen));
   if (isOpen) {
     smartPhonesProducts.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+
+function resetCaseBrandSelection() {
+  caseBrandList.hidden = false;
+  caseBrandProducts.hidden = true;
+  caseProductGrid.hidden = false;
+  selectedCaseBrandHeading.textContent = "";
+  samsungCaseBrandButton.setAttribute("aria-expanded", "false");
+}
+
+function setCasesCoversOpen(isOpen) {
+  resetCaseBrandSelection();
+  casesCoversProducts.hidden = !isOpen;
+  casesCoversCategory.setAttribute("aria-expanded", String(isOpen));
+  if (isOpen) {
+    casesCoversProducts.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 }
 
@@ -59,6 +147,14 @@ categorySearch.addEventListener("input", () => {
     if (matches) matchingProductCount += 1;
   });
 
+  let matchingCaseProductCount = 0;
+  caseProductCards.forEach((card) => {
+    const productDetails = card.querySelector(".product-card-details").textContent.toLowerCase().replace(/\s+/g, " ");
+    const matches = Boolean(query) && productDetails.includes(query);
+    card.hidden = Boolean(query) && !matches;
+    if (matches) matchingCaseProductCount += 1;
+  });
+
   if (matchingProductCount > 0) {
     smartPhonesCategory.hidden = false;
     resetPhoneBrandSelection();
@@ -67,13 +163,25 @@ categorySearch.addEventListener("input", () => {
     phoneBrandList.hidden = true;
     brandProducts.hidden = false;
     selectedBrandHeading.textContent = "Search results";
-    emptyMessage.hidden = true;
-    return;
+  } else {
+    resetPhoneBrandSelection();
+    if (query && smartPhonesProducts.hidden === false) setSmartPhonesOpen(false);
   }
 
-  resetPhoneBrandSelection();
-  emptyMessage.hidden = visibleCategoryCount > 0;
-  if (smartPhonesCategory.hidden) setSmartPhonesOpen(false);
+  if (matchingCaseProductCount > 0) {
+    casesCoversCategory.hidden = false;
+    resetCaseBrandSelection();
+    casesCoversProducts.hidden = false;
+    casesCoversCategory.setAttribute("aria-expanded", "true");
+    caseBrandList.hidden = true;
+    caseBrandProducts.hidden = false;
+    selectedCaseBrandHeading.textContent = "Samsung back-cover search results";
+  } else {
+    resetCaseBrandSelection();
+    if (query) setCasesCoversOpen(false);
+  }
+
+  emptyMessage.hidden = visibleCategoryCount > 0 || matchingProductCount > 0 || matchingCaseProductCount > 0;
 });
 
 smartPhonesCategory.addEventListener("click", () => {
@@ -86,6 +194,29 @@ smartPhonesCategory.addEventListener("keydown", (event) => {
   }
 });
 closeSmartPhonesButton.addEventListener("click", () => setSmartPhonesOpen(false));
+casesCoversCategory.addEventListener("click", () => {
+  setCasesCoversOpen(casesCoversProducts.hidden);
+});
+casesCoversCategory.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    setCasesCoversOpen(casesCoversProducts.hidden);
+  }
+});
+closeCasesCoversButton.addEventListener("click", () => setCasesCoversOpen(false));
+samsungCaseBrandButton.addEventListener("click", () => {
+  caseBrandList.hidden = true;
+  caseBrandProducts.hidden = false;
+  selectedCaseBrandHeading.textContent = "Samsung back covers";
+  samsungCaseBrandButton.setAttribute("aria-expanded", "true");
+  caseProductGrid.querySelectorAll(".product-card").forEach((card) => {
+    card.hidden = false;
+  });
+});
+backToCaseBrandsButton.addEventListener("click", () => {
+  resetCaseBrandSelection();
+  samsungCaseBrandButton.focus();
+});
 
 phoneBrandList.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-brand]");

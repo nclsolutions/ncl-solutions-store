@@ -70,10 +70,10 @@
             <h3>Smart Phones</h3>
             <p class="category-description">Tap to view available phones</p>
           </article>
-          <article class="category-card">
+          <article class="category-card category-card-interactive" id="cases-covers-category" role="button" tabindex="0" aria-controls="cases-covers-products" aria-expanded="false">
             <img src="assets/phone-cases.jpg" alt="" loading="lazy">
             <h3>Cases &amp; Covers</h3>
-            <p class="category-description">Protect your phone in style</p>
+            <p class="category-description">Browse back covers for your phone</p>
           </article>
           <article class="category-card">
             <img src="assets/chargers.jpg" alt="" loading="lazy">
@@ -235,6 +235,26 @@
             </div>
           </div>
         </section>
+        <section class="product-results" id="cases-covers-products" aria-labelledby="cases-covers-products-heading" hidden>
+          <div class="product-results-heading">
+            <div>
+              <p class="categories-eyebrow">CASES &amp; COVERS</p>
+              <h3 id="cases-covers-products-heading">Choose a phone brand</h3>
+            </div>
+            <button class="product-results-close" id="close-cases-covers" type="button">Close</button>
+          </div>
+          <div class="phone-brand-list" id="case-brand-list" aria-label="Case brands">
+            <button class="phone-brand-button" id="samsung-case-brand" type="button" aria-controls="case-brand-products" aria-expanded="false">Samsung</button>
+          </div>
+          <div class="brand-products" id="case-brand-products" hidden>
+            <div class="brand-products-heading">
+              <button class="brand-products-back" id="back-to-case-brands" type="button">All brands</button>
+              <h4 id="selected-case-brand-heading"></h4>
+            </div>
+            <p class="product-specification">Samsung back covers for current Sri Lankan models, LKR 500–1,000. Contact us to confirm the exact style and price.</p>
+            <div class="product-grid" id="case-product-grid"></div>
+          </div>
+        </section>
       </div>
     </section>
 
@@ -365,6 +385,6 @@
   </aside>
   <div class="cart-backdrop" id="cart-backdrop" hidden></div>
   <script src="supabase-config.js?v=snow-heavy-7"></script>
-  <script src="script.js?v=product-search-12"></script>
+  <script src="script.js?v=samsung-cases-14"></script>
 </body>
 </html>
