@@ -491,3 +491,19 @@ document.addEventListener("keydown", (event) => {
 });
 
 renderCart();
+
+const snowfall = document.querySelector("#snowfall");
+if (snowfall) {
+  const snowflakeCount = window.matchMedia("(max-width: 560px)").matches ? 35 : 55;
+  for (let index = 0; index < snowflakeCount; index += 1) {
+    const flake = document.createElement("span");
+    flake.className = "snowflake";
+    flake.style.setProperty("--left", `${Math.random() * 100}%`);
+    flake.style.setProperty("--size", `${3 + Math.random() * 7}px`);
+    flake.style.setProperty("--opacity", `${0.35 + Math.random() * 0.55}`);
+    flake.style.setProperty("--duration", `${7 + Math.random() * 11}s`);
+    flake.style.setProperty("--delay", `${-Math.random() * 18}s`);
+    flake.style.setProperty("--drift", `${-55 + Math.random() * 110}px`);
+    snowfall.appendChild(flake);
+  }
+}
