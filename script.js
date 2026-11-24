@@ -4,7 +4,7 @@ const emptyMessage = document.querySelector("#category-empty");
 const smartPhonesCategory = document.querySelector("#smart-phones-category");
 const smartPhonesProducts = document.querySelector("#smart-phones-products");
 const closeSmartPhonesButton = document.querySelector("#close-smart-phones");
-const addGalaxyA07Button = document.querySelector("#add-galaxy-a07");
+const productAddButtons = Array.from(document.querySelectorAll(".product-add-button"));
 
 if (!categorySearch || !categoryGrid || !emptyMessage) {
   throw new Error("Category search elements are required.");
@@ -47,10 +47,15 @@ smartPhonesCategory.addEventListener("keydown", (event) => {
 closeSmartPhonesButton.addEventListener("click", () => setSmartPhonesOpen(false));
 
 const products = {
-  "galaxy-a07": {
+  "galaxy-a07-4-64": {
     name: "Samsung Galaxy A07",
     specification: "4 GB RAM / 64 GB storage",
     price: 52490
+  },
+  "galaxy-a07-6-128": {
+    name: "Samsung Galaxy A07",
+    specification: "6 GB RAM / 128 GB storage",
+    price: 66490
   }
 };
 const cart = new Map();
@@ -182,11 +187,14 @@ cartItems.addEventListener("click", (event) => {
   renderCart();
 });
 
-addGalaxyA07Button.addEventListener("click", () => {
-  const quantity = cart.get("galaxy-a07") || 0;
-  cart.set("galaxy-a07", quantity + 1);
-  renderCart();
-  openCart();
+productAddButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const productId = button.dataset.productId;
+    const quantity = cart.get(productId) || 0;
+    cart.set(productId, quantity + 1);
+    renderCart();
+    openCart();
+  });
 });
 
 const reviewForm = document.querySelector("#review-form");
