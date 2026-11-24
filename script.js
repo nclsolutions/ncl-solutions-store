@@ -73,7 +73,10 @@ const emailOrder = document.querySelector("#email-order");
 const cartOrderNote = document.querySelector("#cart-order-note");
 
 function formatPrice(amount) {
-  return amount.toLocaleString("en-LK");
+  return amount.toLocaleString("en-LK", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
 }
 
 function openCart() {
