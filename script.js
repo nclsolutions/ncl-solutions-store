@@ -85,15 +85,6 @@ function renderCart() {
   });
 }
 
-document.querySelectorAll(".add-to-cart").forEach((button) => {
-  button.addEventListener("click", () => {
-    const name = button.dataset.name;
-    cart.set(name, (cart.get(name) || 0) + 1);
-    renderCart();
-    openCart();
-  });
-});
-
 cartItems.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-action]");
   if (!button) return;
