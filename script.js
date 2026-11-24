@@ -1,12 +1,24 @@
 const categorySearch = document.querySelector("#category-search");
 const categoryGrid = document.querySelector("#category-grid");
 const emptyMessage = document.querySelector("#category-empty");
+const smartPhonesCategory = document.querySelector("#smart-phones-category");
+const smartPhonesProducts = document.querySelector("#smart-phones-products");
+const closeSmartPhonesButton = document.querySelector("#close-smart-phones");
+const addGalaxyA07Button = document.querySelector("#add-galaxy-a07");
 
 if (!categorySearch || !categoryGrid || !emptyMessage) {
   throw new Error("Category search elements are required.");
 }
 
 const categoryCards = categoryGrid.querySelectorAll(".category-card");
+
+function setSmartPhonesOpen(isOpen) {
+  smartPhonesProducts.hidden = !isOpen;
+  smartPhonesCategory.setAttribute("aria-expanded", String(isOpen));
+  if (isOpen) {
+    smartPhonesProducts.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
 
 categorySearch.addEventListener("input", () => {
   const query = categorySearch.value.trim().toLowerCase();
@@ -20,8 +32,27 @@ categorySearch.addEventListener("input", () => {
   });
 
   emptyMessage.hidden = visibleCount > 0;
+  if (smartPhonesCategory.hidden) setSmartPhonesOpen(false);
 });
 
+smartPhonesCategory.addEventListener("click", () => {
+  setSmartPhonesOpen(smartPhonesProducts.hidden);
+});
+smartPhonesCategory.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    setSmartPhonesOpen(smartPhonesProducts.hidden);
+  }
+});
+closeSmartPhonesButton.addEventListener("click", () => setSmartPhonesOpen(false));
+
+const products = {
+  "galaxy-a07": {
+    name: "Samsung Galaxy A07",
+    specification: "4 GB RAM / 64 GB storage",
+    price: 52490
+  }
+};
 const cart = new Map();
 const headerCart = document.querySelector("#header-cart");
 const cartDrawer = document.querySelector("#cart-drawer");
@@ -31,7 +62,14 @@ const cartItems = document.querySelector("#cart-items");
 const cartCount = document.querySelector("#cart-count");
 const headerCartCount = document.querySelector("#header-cart-count");
 const cartItemCount = document.querySelector("#cart-item-count");
-const checkoutButton = document.querySelector("#checkout-button");
+const cartTotalAmount = document.querySelector("#cart-total-amount");
+const whatsappOrder = document.querySelector("#whatsapp-order");
+const emailOrder = document.querySelector("#email-order");
+const cartOrderNote = document.querySelector("#cart-order-note");
+
+function formatPrice(amount) {
+  return amount.toLocaleString("en-LK");
+}
 
 function openCart() {
   cartDrawer.classList.add("open");
@@ -53,34 +91,77 @@ function getTotalItems() {
   return Array.from(cart.values()).reduce((total, quantity) => total + quantity, 0);
 }
 
+function getTotalPrice() {
+  return Array.from(cart.entries()).reduce((total, [productId, quantity]) => {
+    return total + products[productId].price * quantity;
+  }, 0);
+}
+
+function getOrderMessage() {
+  const orderLines = Array.from(cart.entries()).map(([productId, quantity]) => {
+    const product = products[productId];
+    return `- ${product.name} (${product.specification}) x ${quantity}: LKR ${formatPrice(product.price * quantity)}`;
+  });
+  return `Hello NCL Solutions, I would like to place an order:\n\n${orderLines.join("\n")}\n\nTotal: LKR ${formatPrice(getTotalPrice())}`;
+}
+
 function renderCart() {
   const totalItems = getTotalItems();
   cartCount.textContent = totalItems;
   headerCartCount.textContent = totalItems;
   cartItemCount.textContent = totalItems;
-  checkoutButton.disabled = totalItems === 0;
+  cartTotalAmount.textContent = `LKR ${formatPrice(getTotalPrice())}`;
   headerCart.classList.toggle("has-items", totalItems > 0);
-  cartItems.innerHTML = "";
+  cartItems.replaceChildren();
+  whatsappOrder.hidden = totalItems === 0;
+  emailOrder.hidden = totalItems === 0;
+  cartOrderNote.hidden = totalItems === 0;
+
+  if (totalItems > 0) {
+    const message = getOrderMessage();
+    whatsappOrder.href = `https://wa.me/94779273876?text=${encodeURIComponent(message)}`;
+    emailOrder.href = `mailto:lakshancreations26@gmail.com?subject=${encodeURIComponent("Order from NCL Solutions")}&body=${encodeURIComponent(message)}`;
+  }
 
   if (totalItems === 0) {
-    cartItems.innerHTML = '<div class="cart-empty"><span>0</span><p>Your cart is empty</p></div>';
+    const emptyState = document.createElement("div");
+    emptyState.className = "cart-empty";
+    emptyState.innerHTML = "<span>0</span><p>Your cart is empty</p>";
+    cartItems.appendChild(emptyState);
     return;
   }
 
-  cart.forEach((quantity, name) => {
-    const item = document.createElement("div");
+  cart.forEach((quantity, productId) => {
+    const product = products[productId];
+    const item = document.createElement("article");
     item.className = "cart-item";
-    item.innerHTML = `
-      <div>
-        <strong>${name}</strong>
-        <small>Qty: ${quantity}</small>
-      </div>
-      <div class="cart-item-actions">
-        <button type="button" data-action="decrease" data-name="${name}" aria-label="Decrease ${name}">-</button>
-        <span>${quantity}</span>
-        <button type="button" data-action="increase" data-name="${name}" aria-label="Increase ${name}">+</button>
-      </div>
-    `;
+    const details = document.createElement("div");
+    const name = document.createElement("strong");
+    name.textContent = product.name;
+    const specification = document.createElement("small");
+    specification.textContent = product.specification;
+    const price = document.createElement("small");
+    price.textContent = `LKR ${formatPrice(product.price)} each`;
+    details.append(name, specification, price);
+
+    const actions = document.createElement("div");
+    actions.className = "cart-item-actions";
+    const decreaseButton = document.createElement("button");
+    decreaseButton.type = "button";
+    decreaseButton.dataset.action = "decrease";
+    decreaseButton.dataset.productId = productId;
+    decreaseButton.setAttribute("aria-label", `Decrease ${product.name}`);
+    decreaseButton.textContent = "-";
+    const quantityLabel = document.createElement("span");
+    quantityLabel.textContent = quantity;
+    const increaseButton = document.createElement("button");
+    increaseButton.type = "button";
+    increaseButton.dataset.action = "increase";
+    increaseButton.dataset.productId = productId;
+    increaseButton.setAttribute("aria-label", `Increase ${product.name}`);
+    increaseButton.textContent = "+";
+    actions.append(decreaseButton, quantityLabel, increaseButton);
+    item.append(details, actions);
     cartItems.appendChild(item);
   });
 }
@@ -89,16 +170,23 @@ cartItems.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-action]");
   if (!button) return;
 
-  const name = button.dataset.name;
-  const quantity = cart.get(name) || 0;
+  const productId = button.dataset.productId;
+  const quantity = cart.get(productId) || 0;
   if (button.dataset.action === "increase") {
-    cart.set(name, quantity + 1);
+    cart.set(productId, quantity + 1);
   } else if (quantity <= 1) {
-    cart.delete(name);
+    cart.delete(productId);
   } else {
-    cart.set(name, quantity - 1);
+    cart.set(productId, quantity - 1);
   }
   renderCart();
+});
+
+addGalaxyA07Button.addEventListener("click", () => {
+  const quantity = cart.get("galaxy-a07") || 0;
+  cart.set("galaxy-a07", quantity + 1);
+  renderCart();
+  openCart();
 });
 
 const reviewForm = document.querySelector("#review-form");
@@ -278,10 +366,6 @@ cartClose.addEventListener("click", closeCart);
 cartBackdrop.addEventListener("click", closeCart);
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeCart();
-});
-
-checkoutButton.addEventListener("click", () => {
-  alert(`Order has ${getTotalItems()} item(s).`);
 });
 
 renderCart();

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=reviews-live-1">
+  <link rel="stylesheet" href="styles.css?v=galaxy-a07-1">
 </head>
 <body>
   <header class="site-header">
@@ -64,10 +64,10 @@
         </div>
         <p class="category-empty" id="category-empty" role="status" hidden>No matching categories found.</p>
         <div class="category-grid" id="category-grid">
-          <article class="category-card">
+          <article class="category-card category-card-interactive" id="smart-phones-category" role="button" tabindex="0" aria-controls="smart-phones-products" aria-expanded="false">
             <img src="assets/mobile-phones.jpg" alt="" loading="lazy">
             <h3>Smart Phones</h3>
-            <p class="category-description">Powerful phones for everyday life</p>
+            <p class="category-description">Tap to view available phones</p>
           </article>
           <article class="category-card">
             <img src="assets/phone-cases.jpg" alt="" loading="lazy">
@@ -95,6 +95,26 @@
             <p class="category-description">Trusted care for your device</p>
           </article>
         </div>
+        <section class="product-results" id="smart-phones-products" aria-labelledby="smart-phones-products-heading" hidden>
+          <div class="product-results-heading">
+            <div>
+              <p class="categories-eyebrow">AVAILABLE NOW</p>
+              <h3 id="smart-phones-products-heading">Smart Phones</h3>
+            </div>
+            <button class="product-results-close" id="close-smart-phones" type="button">Close</button>
+          </div>
+          <article class="product-card">
+            <img src="assets/samsung-galaxy-a07.jpg" alt="Samsung Galaxy A07 smartphone, front and back">
+            <div class="product-card-details">
+              <p class="product-card-eyebrow">SAMSUNG</p>
+              <h4>Galaxy A07</h4>
+              <p class="product-specification"><strong>RAM:</strong> 4 GB</p>
+              <p class="product-specification"><strong>Storage:</strong> 64 GB</p>
+              <p class="product-price">LKR 52,490</p>
+              <button class="product-add-button" id="add-galaxy-a07" type="button">Add to cart</button>
+            </div>
+          </article>
+        </section>
       </div>
     </section>
 
@@ -172,11 +192,17 @@
         <span>Items</span>
         <strong id="cart-item-count">0</strong>
       </div>
-      <button class="checkout-button" id="checkout-button" type="button" disabled>View order</button>
+      <div class="cart-total">
+        <span>Total</span>
+        <strong id="cart-total-amount">LKR 0</strong>
+      </div>
+      <a class="checkout-button" id="whatsapp-order" href="#" target="_blank" rel="noopener" hidden>Order via WhatsApp</a>
+      <a class="checkout-button email-order-button" id="email-order" href="#" hidden>Order via Email</a>
+      <p class="cart-order-note" id="cart-order-note" hidden>Choose an option to send your order details.</p>
     </div>
   </aside>
   <div class="cart-backdrop" id="cart-backdrop" hidden></div>
-  <script src="supabase-config.js?v=reviews-live-1"></script>
-  <script src="script.js?v=reviews-live-1"></script>
+  <script src="supabase-config.js?v=galaxy-a07-1"></script>
+  <script src="script.js?v=galaxy-a07-1"></script>
 </body>
 </html>
