@@ -41,7 +41,7 @@ function setSmartPhonesOpen(isOpen) {
 }
 
 categorySearch.addEventListener("input", () => {
-  const query = categorySearch.value.trim().toLowerCase();
+  const query = categorySearch.value.trim().toLowerCase().replace(/\s+/g, " ");
   let visibleCategoryCount = 0;
 
   categoryCards.forEach((card) => {
@@ -53,7 +53,7 @@ categorySearch.addEventListener("input", () => {
 
   let matchingProductCount = 0;
   productCards.forEach((card) => {
-    const productDetails = card.querySelector(".product-card-details").textContent.toLowerCase();
+    const productDetails = card.querySelector(".product-card-details").textContent.toLowerCase().replace(/\s+/g, " ");
     const matches = Boolean(query) && productDetails.includes(query);
     card.hidden = Boolean(query) && !matches;
     if (matches) matchingProductCount += 1;
