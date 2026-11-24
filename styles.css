@@ -312,10 +312,24 @@ a { color: inherit; text-decoration: none; }
 }
 
 .reviews-section {
+  position: relative;
   padding: 64px 28px 72px;
-  background: linear-gradient(180deg, #f3f8f3 0%, #fbfcfb 100%);
+  background:
+    radial-gradient(ellipse at 0% 18%, rgba(47, 158, 68, .12), transparent 38%),
+    radial-gradient(ellipse at 100% 75%, rgba(205, 218, 48, .18), transparent 36%),
+    linear-gradient(135deg, #f5faf2 0%, #fffdf0 100%);
+}
+.reviews-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #20843a 0%, #56ad38 52%, #e3d82b 100%);
 }
 .reviews-inner {
+  position: relative;
   max-width: 1184px;
   margin: 0 auto;
 }
@@ -328,7 +342,7 @@ a { color: inherit; text-decoration: none; }
 }
 .reviews-heading h2 {
   margin: 0;
-  color: var(--ink);
+  color: #175c2b;
   font-size: clamp(30px, 3.2vw, 40px);
   letter-spacing: -1.2px;
 }
@@ -340,18 +354,19 @@ a { color: inherit; text-decoration: none; }
 .reviews-summary {
   min-width: 220px;
   padding: 16px 20px;
-  border: 1px solid rgba(47, 158, 68, .14);
+  border: 1px solid rgba(31, 122, 53, .16);
   border-radius: 16px;
   display: flex;
   align-items: center;
   gap: 14px;
-  background: rgba(255,255,255,.92);
-  box-shadow: 0 8px 24px rgba(31, 72, 43, .06);
+  background: linear-gradient(120deg, #237d36 0%, #39a344 56%, #97bd35 100%);
+  box-shadow: 0 10px 24px rgba(31, 122, 53, .2);
 }
 .reviews-summary > div { display: grid; gap: 2px; }
-.reviews-average { color: var(--ink); font-size: 30px; line-height: 1; }
-.reviews-average-stars, .review-card-stars { color: #d3a514; letter-spacing: 2px; }
-.reviews-total { color: var(--muted); font-size: 11px; }
+.reviews-average { color: var(--white); font-size: 30px; line-height: 1; }
+.reviews-average-stars { color: #fff071; letter-spacing: 2px; }
+.review-card-stars { color: #d3a514; letter-spacing: 2px; }
+.reviews-total { color: rgba(255,255,255,.88); font-size: 11px; }
 .reviews-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -369,10 +384,22 @@ a { color: inherit; text-decoration: none; }
 .review-setup-notice {
   min-height: 100%;
   padding: 30px;
-  border: 1px solid rgba(47, 158, 68, .16);
+  border: 1px solid rgba(47, 158, 68, .25);
   border-radius: 18px;
-  background: linear-gradient(145deg, #ffffff 0%, #f1f8ed 100%);
-  box-shadow: 0 12px 30px rgba(31, 72, 43, .07);
+  background: linear-gradient(145deg, #ffffff 0%, #eff8df 58%, #fff8ca 100%);
+  box-shadow: 0 14px 32px rgba(31, 92, 43, .1);
+  position: relative;
+  overflow: hidden;
+}
+.review-setup-notice::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 42%;
+  height: 5px;
+  border-radius: 0 18px 0 8px;
+  background: linear-gradient(90deg, var(--green), #e3d82b);
 }
 .review-setup-notice[hidden], .review-form[hidden] { display: none; }
 .review-notice-icon {
@@ -382,14 +409,14 @@ a { color: inherit; text-decoration: none; }
   border-radius: 13px;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, var(--green), var(--lime));
+  background: linear-gradient(135deg, #20843a 0%, #73b82f 58%, #e3d82b 100%);
   color: var(--white);
   font-size: 23px;
   box-shadow: 0 7px 16px rgba(47, 158, 68, .2);
 }
 .review-notice-eyebrow {
   margin: 0 0 7px;
-  color: var(--green-dark);
+  color: #267c36;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.5px;
@@ -411,7 +438,7 @@ a { color: inherit; text-decoration: none; }
 .review-notice-features {
   margin-top: 22px;
   padding-top: 16px;
-  border-top: 1px solid rgba(47, 158, 68, .13);
+  border-top: 1px solid rgba(47, 158, 68, .2);
   display: flex;
   flex-wrap: wrap;
   gap: 12px 20px;
@@ -513,10 +540,10 @@ a { color: inherit; text-decoration: none; }
 .no-reviews {
   margin: 0;
   padding: 26px 18px;
-  border: 1px dashed #d6e4d7;
+  border: 1px dashed #c8d996;
   border-radius: 12px;
-  background: #f9fcf8;
-  color: var(--muted);
+  background: linear-gradient(135deg, #f3faed 0%, #fffbea 100%);
+  color: #4b5c45;
   font-size: 13px;
   line-height: 1.6;
   text-align: center;
