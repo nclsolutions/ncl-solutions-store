@@ -76,7 +76,14 @@ phoneBrandList.addEventListener("click", (event) => {
   selectedBrandHeading.textContent = `${brand} phones`;
   button.setAttribute("aria-expanded", "true");
 
-  const hasProducts = brand === "Samsung";
+  let visibleProductCount = 0;
+  phoneProductGrid.querySelectorAll(".product-card").forEach((card) => {
+    const matchesBrand = card.dataset.brand === brand;
+    card.hidden = !matchesBrand;
+    if (matchesBrand) visibleProductCount += 1;
+  });
+
+  const hasProducts = visibleProductCount > 0;
   phoneProductGrid.hidden = !hasProducts;
   brandEmptyMessage.hidden = hasProducts;
   if (!hasProducts) {
@@ -115,6 +122,31 @@ const products = {
     name: "Samsung Galaxy A37 5G",
     specification: "8 GB RAM / 256 GB storage",
     price: 171990
+  },
+  "infinix-smart-20-8-128": {
+    name: "Infinix Smart 20",
+    specification: "8 GB RAM / 128 GB storage",
+    price: 62490
+  },
+  "infinix-smart-20-8-64": {
+    name: "Infinix Smart 20",
+    specification: "8 GB RAM / 64 GB storage",
+    price: 52490
+  },
+  "itel-a200-8-128": {
+    name: "Itel A200",
+    specification: "8 GB RAM / 128 GB storage",
+    price: 42490
+  },
+  "zte-blade-a56-12-128": {
+    name: "ZTE Blade A56",
+    specification: "12 GB RAM / 128 GB storage",
+    price: 51490
+  },
+  "zte-blade-a36e-6-64": {
+    name: "ZTE Blade A36e",
+    specification: "6 GB RAM / 64 GB storage",
+    price: 38490
   }
 };
 const cart = new Map();
