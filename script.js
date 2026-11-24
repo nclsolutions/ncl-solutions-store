@@ -112,6 +112,7 @@ const reviewForm = document.querySelector("#review-form");
   const reviewsTotal = document.querySelector("#reviews-total");
   const reviewCharacterCount = document.querySelector("#review-character-count");
   const ratingButtons = Array.from(document.querySelectorAll(".rating-star"));
+  const reviewSetupNotice = document.querySelector("#review-setup-notice");
   const reviewConfig = window.NCL_REVIEWS_CONFIG || {};
   const reviewsUrl = typeof reviewConfig.projectUrl === "string" ? reviewConfig.projectUrl.trim().replace(/\/+$/, "") : "";
   const reviewsKey = typeof reviewConfig.anonKey === "string" ? reviewConfig.anonKey.trim() : "";
@@ -178,14 +179,16 @@ const reviewForm = document.querySelector("#review-form");
 
   async function loadReviews() {
     if (!reviewsUrl || !reviewsKey) {
-      reviewLoadStatus.textContent = "Reviews will appear here once the review service is set up.";
-      reviewFormStatus.textContent = "Review submissions are not available yet.";
-      reviewComment.disabled = true;
-      reviewSubmit.disabled = true;
-      ratingButtons.forEach((button) => { button.disabled = true; });
+      reviewForm.hidden = true;
+      reviewSetupNotice.hidden = false;
+      reviewLoadStatus.textContent = "";
       renderReviews([]);
+      reviewList.querySelector(".no-reviews").textContent = "Customer reviews will appear here once the review service is connected.";
       return;
     }
+
+    reviewForm.hidden = false;
+    reviewSetupNotice.hidden = true;
 
     try {
       const response = await fetch(
