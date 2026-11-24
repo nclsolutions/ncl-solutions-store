@@ -23,13 +23,13 @@ categorySearch.addEventListener("input", () => {
 });
 
 const cart = new Map();
-const bottomCart = document.querySelector("#bottom-cart");
+const headerCart = document.querySelector("#header-cart");
 const cartDrawer = document.querySelector("#cart-drawer");
 const cartBackdrop = document.querySelector("#cart-backdrop");
 const cartClose = document.querySelector("#cart-close");
 const cartItems = document.querySelector("#cart-items");
 const cartCount = document.querySelector("#cart-count");
-const bottomCartCount = document.querySelector("#bottom-cart-count");
+const headerCartCount = document.querySelector("#header-cart-count");
 const cartItemCount = document.querySelector("#cart-item-count");
 const checkoutButton = document.querySelector("#checkout-button");
 
@@ -37,7 +37,7 @@ function openCart() {
   cartDrawer.classList.add("open");
   cartBackdrop.hidden = false;
   cartDrawer.setAttribute("aria-hidden", "false");
-  bottomCart.setAttribute("aria-expanded", "true");
+  headerCart.setAttribute("aria-expanded", "true");
   document.body.classList.add("cart-open");
 }
 
@@ -45,7 +45,7 @@ function closeCart() {
   cartDrawer.classList.remove("open");
   cartBackdrop.hidden = true;
   cartDrawer.setAttribute("aria-hidden", "true");
-  bottomCart.setAttribute("aria-expanded", "false");
+  headerCart.setAttribute("aria-expanded", "false");
   document.body.classList.remove("cart-open");
 }
 
@@ -56,10 +56,10 @@ function getTotalItems() {
 function renderCart() {
   const totalItems = getTotalItems();
   cartCount.textContent = totalItems;
-  bottomCartCount.textContent = totalItems;
+  headerCartCount.textContent = totalItems;
   cartItemCount.textContent = totalItems;
   checkoutButton.disabled = totalItems === 0;
-  bottomCart.classList.toggle("has-items", totalItems > 0);
+  headerCart.classList.toggle("has-items", totalItems > 0);
   cartItems.innerHTML = "";
 
   if (totalItems === 0) {
@@ -110,7 +110,7 @@ cartItems.addEventListener("click", (event) => {
   renderCart();
 });
 
-bottomCart.addEventListener("click", openCart);
+headerCart.addEventListener("click", openCart);
 cartClose.addEventListener("click", closeCart);
 cartBackdrop.addEventListener("click", closeCart);
 document.addEventListener("keydown", (event) => {
