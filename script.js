@@ -19,6 +19,7 @@ if (!categorySearch || !categoryGrid || !emptyMessage) {
 }
 
 const categoryCards = categoryGrid.querySelectorAll(".category-card");
+const productCards = Array.from(phoneProductGrid.querySelectorAll(".product-card"));
 
 function resetPhoneBrandSelection() {
   phoneBrandList.hidden = false;
@@ -41,16 +42,37 @@ function setSmartPhonesOpen(isOpen) {
 
 categorySearch.addEventListener("input", () => {
   const query = categorySearch.value.trim().toLowerCase();
-  let visibleCount = 0;
+  let visibleCategoryCount = 0;
 
   categoryCards.forEach((card) => {
     const categoryName = card.querySelector("h3").textContent.trim().toLowerCase();
     const matches = categoryName.includes(query);
     card.hidden = !matches;
-    if (matches) visibleCount += 1;
+    if (matches) visibleCategoryCount += 1;
   });
 
-  emptyMessage.hidden = visibleCount > 0;
+  let matchingProductCount = 0;
+  productCards.forEach((card) => {
+    const productDetails = card.querySelector(".product-card-details").textContent.toLowerCase();
+    const matches = Boolean(query) && productDetails.includes(query);
+    card.hidden = Boolean(query) && !matches;
+    if (matches) matchingProductCount += 1;
+  });
+
+  if (matchingProductCount > 0) {
+    smartPhonesCategory.hidden = false;
+    resetPhoneBrandSelection();
+    smartPhonesProducts.hidden = false;
+    smartPhonesCategory.setAttribute("aria-expanded", "true");
+    phoneBrandList.hidden = true;
+    brandProducts.hidden = false;
+    selectedBrandHeading.textContent = "Search results";
+    emptyMessage.hidden = true;
+    return;
+  }
+
+  resetPhoneBrandSelection();
+  emptyMessage.hidden = visibleCategoryCount > 0;
   if (smartPhonesCategory.hidden) setSmartPhonesOpen(false);
 });
 
