@@ -81,11 +81,12 @@ a { color: inherit; text-decoration: none; }
   white-space: nowrap;
 }
 .brand-logo {
-  width: 64px;
-  height: 48px;
+  width: 58px;
+  height: 58px;
   object-fit: contain;
   object-position: center;
-  border-radius: 8px;
+  border-radius: 0;
+  background: transparent;
 }
 .main-nav { display: flex; gap: 34px; }
 .nav-link {
@@ -1028,7 +1029,7 @@ footer {
   .header-inner { padding: 0 12px; }
   .brand-name { font-size: 14px; }
   .brand-tagline { font-size: 8px; letter-spacing: .6px; }
-  .brand-logo { width: 38px; height: 38px; border-radius: 8px; }
+  .brand-logo { width: 38px; height: 38px; border-radius: 0; }
   .hero { min-height: 0; padding: 36px 18px 24px; }
   .eyebrow { font-size: 10px; }
   .hero h1 { font-size: 43px; line-height: 1.06; letter-spacing: -2.5px; }
