@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=required-order-details-3">
+  <link rel="stylesheet" href="styles.css?v=phone-brands-2">
 </head>
 <body>
   <header class="site-header">
@@ -98,34 +98,52 @@
         <section class="product-results" id="smart-phones-products" aria-labelledby="smart-phones-products-heading" hidden>
           <div class="product-results-heading">
             <div>
-              <p class="categories-eyebrow">AVAILABLE NOW</p>
-              <h3 id="smart-phones-products-heading">Smart Phones</h3>
+              <p class="categories-eyebrow">BROWSE BY BRAND</p>
+              <h3 id="smart-phones-products-heading">Choose a phone brand</h3>
             </div>
             <button class="product-results-close" id="close-smart-phones" type="button">Close</button>
           </div>
-          <div class="product-grid">
-            <article class="product-card">
-              <img src="assets/samsung-galaxy-a07.jpg" alt="Samsung Galaxy A07 smartphone, front and back">
-              <div class="product-card-details">
-                <p class="product-card-eyebrow">SAMSUNG</p>
-                <h4>Galaxy A07</h4>
-                <p class="product-specification"><strong>RAM:</strong> 4 GB</p>
-                <p class="product-specification"><strong>Storage:</strong> 64 GB</p>
-                <p class="product-price">LKR 52,490.00</p>
-                <button class="product-add-button" data-product-id="galaxy-a07-4-64" type="button">Add to cart</button>
-              </div>
-            </article>
-            <article class="product-card">
-              <img src="assets/samsung-galaxy-a07.jpg" alt="Samsung Galaxy A07 smartphone, front and back">
-              <div class="product-card-details">
-                <p class="product-card-eyebrow">SAMSUNG</p>
-                <h4>Galaxy A07</h4>
-                <p class="product-specification"><strong>RAM:</strong> 6 GB</p>
-                <p class="product-specification"><strong>Storage:</strong> 128 GB</p>
-                <p class="product-price">LKR 66,490.00</p>
-                <button class="product-add-button" data-product-id="galaxy-a07-6-128" type="button">Add to cart</button>
-              </div>
-            </article>
+          <div class="phone-brand-list" id="phone-brand-list" aria-label="Phone brands">
+            <button class="phone-brand-button" type="button" data-brand="Samsung" aria-controls="brand-products" aria-expanded="false">Samsung</button>
+            <button class="phone-brand-button" type="button" data-brand="Redmi" aria-controls="brand-products" aria-expanded="false">Redmi</button>
+            <button class="phone-brand-button" type="button" data-brand="OPPO" aria-controls="brand-products" aria-expanded="false">OPPO</button>
+            <button class="phone-brand-button" type="button" data-brand="Motorola" aria-controls="brand-products" aria-expanded="false">Motorola</button>
+            <button class="phone-brand-button" type="button" data-brand="OnePlus" aria-controls="brand-products" aria-expanded="false">OnePlus</button>
+            <button class="phone-brand-button" type="button" data-brand="Infinix" aria-controls="brand-products" aria-expanded="false">Infinix</button>
+            <button class="phone-brand-button" type="button" data-brand="ZTE" aria-controls="brand-products" aria-expanded="false">ZTE</button>
+            <button class="phone-brand-button" type="button" data-brand="Itel" aria-controls="brand-products" aria-expanded="false">Itel</button>
+            <button class="phone-brand-button" type="button" data-brand="KXD" aria-controls="brand-products" aria-expanded="false">KXD</button>
+          </div>
+          <div class="brand-products" id="brand-products" hidden>
+            <div class="brand-products-heading">
+              <button class="brand-products-back" id="back-to-phone-brands" type="button">All brands</button>
+              <h4 id="selected-brand-heading"></h4>
+            </div>
+            <p class="brand-empty" id="brand-empty-message" hidden></p>
+            <div class="product-grid" id="phone-product-grid">
+              <article class="product-card">
+                <img src="assets/samsung-galaxy-a07.jpg" alt="Samsung Galaxy A07 smartphone, front and back">
+                <div class="product-card-details">
+                  <p class="product-card-eyebrow">SAMSUNG</p>
+                  <h4>Galaxy A07</h4>
+                  <p class="product-specification"><strong>RAM:</strong> 4 GB</p>
+                  <p class="product-specification"><strong>Storage:</strong> 64 GB</p>
+                  <p class="product-price">LKR 52,490.00</p>
+                  <button class="product-add-button" data-product-id="galaxy-a07-4-64" type="button">Add to cart</button>
+                </div>
+              </article>
+              <article class="product-card">
+                <img src="assets/samsung-galaxy-a07.jpg" alt="Samsung Galaxy A07 smartphone, front and back">
+                <div class="product-card-details">
+                  <p class="product-card-eyebrow">SAMSUNG</p>
+                  <h4>Galaxy A07</h4>
+                  <p class="product-specification"><strong>RAM:</strong> 6 GB</p>
+                  <p class="product-specification"><strong>Storage:</strong> 128 GB</p>
+                  <p class="product-price">LKR 66,490.00</p>
+                  <button class="product-add-button" data-product-id="galaxy-a07-6-128" type="button">Add to cart</button>
+                </div>
+              </article>
+            </div>
           </div>
         </section>
       </div>
@@ -257,7 +275,7 @@
     </div>
   </aside>
   <div class="cart-backdrop" id="cart-backdrop" hidden></div>
-  <script src="supabase-config.js?v=required-order-details-3"></script>
-  <script src="script.js?v=required-order-details-3"></script>
+  <script src="supabase-config.js?v=phone-brands-2"></script>
+  <script src="script.js?v=phone-brands-2"></script>
 </body>
 </html>

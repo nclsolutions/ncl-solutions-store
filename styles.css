@@ -323,6 +323,10 @@ a { color: inherit; text-decoration: none; }
 .checkout-button[hidden],
 .cart-order-note[hidden],
 .order-details-form[hidden],
+#brand-products[hidden],
+.phone-brand-list[hidden],
+.product-grid[hidden],
+.brand-empty[hidden],
 #cart-delivery-fee-row[hidden] { display: none; }
 .product-results {
   margin-top: 24px;
@@ -341,6 +345,59 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 18px;
 }
 .product-results-heading h3 { margin: 4px 0 0; font-size: 23px; }
+.phone-brand-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+}
+.phone-brand-button {
+  min-height: 54px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fbfcfb;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+}
+.phone-brand-button:hover,
+.phone-brand-button:focus-visible {
+  border-color: var(--green);
+  background: #f2f8ef;
+  outline: none;
+  transform: translateY(-1px);
+}
+.phone-brand-button:focus-visible { box-shadow: 0 0 0 3px rgba(47, 158, 68, .18); }
+.brand-products { margin-top: 20px; }
+.brand-products-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.brand-products-heading h4 { margin: 0; font-size: 18px; }
+.brand-products-back {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--green-dark);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.brand-products-back:hover { border-color: var(--green); }
+.brand-empty {
+  margin: 0;
+  padding: 18px;
+  border: 1px dashed #cbd6ce;
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));

@@ -4,7 +4,15 @@ const emptyMessage = document.querySelector("#category-empty");
 const smartPhonesCategory = document.querySelector("#smart-phones-category");
 const smartPhonesProducts = document.querySelector("#smart-phones-products");
 const closeSmartPhonesButton = document.querySelector("#close-smart-phones");
+const phoneBrandList = document.querySelector("#phone-brand-list");
+const phoneBrandButtons = Array.from(phoneBrandList.querySelectorAll(".phone-brand-button"));
+const brandProducts = document.querySelector("#brand-products");
+const selectedBrandHeading = document.querySelector("#selected-brand-heading");
+const brandEmptyMessage = document.querySelector("#brand-empty-message");
+const phoneProductGrid = document.querySelector("#phone-product-grid");
+const backToPhoneBrandsButton = document.querySelector("#back-to-phone-brands");
 const productAddButtons = Array.from(document.querySelectorAll(".product-add-button"));
+let selectedBrandButton = null;
 
 if (!categorySearch || !categoryGrid || !emptyMessage) {
   throw new Error("Category search elements are required.");
@@ -12,7 +20,18 @@ if (!categorySearch || !categoryGrid || !emptyMessage) {
 
 const categoryCards = categoryGrid.querySelectorAll(".category-card");
 
+function resetPhoneBrandSelection() {
+  phoneBrandList.hidden = false;
+  brandProducts.hidden = true;
+  phoneProductGrid.hidden = false;
+  brandEmptyMessage.hidden = true;
+  selectedBrandHeading.textContent = "";
+  phoneBrandButtons.forEach((button) => button.setAttribute("aria-expanded", "false"));
+  selectedBrandButton = null;
+}
+
 function setSmartPhonesOpen(isOpen) {
+  resetPhoneBrandSelection();
   smartPhonesProducts.hidden = !isOpen;
   smartPhonesCategory.setAttribute("aria-expanded", String(isOpen));
   if (isOpen) {
@@ -45,6 +64,31 @@ smartPhonesCategory.addEventListener("keydown", (event) => {
   }
 });
 closeSmartPhonesButton.addEventListener("click", () => setSmartPhonesOpen(false));
+
+phoneBrandList.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-brand]");
+  if (!button) return;
+
+  const brand = button.dataset.brand;
+  selectedBrandButton = button;
+  phoneBrandList.hidden = true;
+  brandProducts.hidden = false;
+  selectedBrandHeading.textContent = `${brand} phones`;
+  button.setAttribute("aria-expanded", "true");
+
+  const hasProducts = brand === "Samsung";
+  phoneProductGrid.hidden = !hasProducts;
+  brandEmptyMessage.hidden = hasProducts;
+  if (!hasProducts) {
+    brandEmptyMessage.textContent = `No ${brand} phones are listed yet.`;
+  }
+});
+
+backToPhoneBrandsButton.addEventListener("click", () => {
+  const previousBrandButton = selectedBrandButton;
+  resetPhoneBrandSelection();
+  if (previousBrandButton) previousBrandButton.focus();
+});
 
 const products = {
   "galaxy-a07-4-64": {
