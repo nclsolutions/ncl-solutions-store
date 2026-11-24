@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=galaxy-a07-variants-1">
+  <link rel="stylesheet" href="styles.css?v=required-order-details-3">
 </head>
 <body>
   <header class="site-header">
@@ -205,17 +205,59 @@
         <span>Items</span>
         <strong id="cart-item-count">0</strong>
       </div>
+      <div class="cart-total" id="cart-delivery-fee-row" hidden>
+        <span>Delivery fee</span>
+        <strong id="cart-delivery-fee">LKR 350.00</strong>
+      </div>
       <div class="cart-total">
         <span>Total</span>
         <strong id="cart-total-amount">LKR 0.00</strong>
       </div>
-      <a class="checkout-button" id="whatsapp-order" href="#" target="_blank" rel="noopener" hidden>Order via WhatsApp</a>
-      <a class="checkout-button email-order-button" id="email-order" href="#" hidden>Order via Email</a>
-      <p class="cart-order-note" id="cart-order-note" hidden>Choose an option to send your order details.</p>
+      <form class="order-details-form" id="order-details-form" hidden>
+        <p class="order-details-heading">Required delivery details</p>
+        <label for="order-name">Full name</label>
+        <input id="order-name" name="name" type="text" autocomplete="name" maxlength="100" required>
+        <label for="order-phone">Phone number</label>
+        <input id="order-phone" name="phone" type="tel" autocomplete="tel" maxlength="30" required>
+        <label for="order-address">Delivery address</label>
+        <textarea id="order-address" name="address" rows="2" autocomplete="street-address" maxlength="300" required></textarea>
+        <label for="order-district">Area / district</label>
+        <select id="order-district" name="district" required>
+          <option value="">Select your area / district</option>
+          <option>Ampara</option>
+          <option>Anuradhapura</option>
+          <option>Badulla</option>
+          <option>Batticaloa</option>
+          <option>Colombo</option>
+          <option>Galle</option>
+          <option>Gampaha</option>
+          <option>Hambantota</option>
+          <option>Jaffna</option>
+          <option>Kalutara</option>
+          <option>Kandy</option>
+          <option>Kegalle</option>
+          <option>Kilinochchi</option>
+          <option>Kurunegala</option>
+          <option>Mannar</option>
+          <option>Matale</option>
+          <option>Matara</option>
+          <option>Monaragala</option>
+          <option>Mullaitivu</option>
+          <option>Nuwara Eliya</option>
+          <option>Polonnaruwa</option>
+          <option>Puttalam</option>
+          <option>Ratnapura</option>
+          <option>Trincomalee</option>
+          <option>Vavuniya</option>
+        </select>
+      </form>
+      <button class="checkout-button" id="whatsapp-order" type="button" disabled>Order via WhatsApp</button>
+      <button class="checkout-button email-order-button" id="email-order" type="button" disabled>Order via Email</button>
+      <p class="cart-order-note" id="cart-order-note" hidden>Delivery is LKR 350.00 per order for all districts. Google Maps location access is not required.</p>
     </div>
   </aside>
   <div class="cart-backdrop" id="cart-backdrop" hidden></div>
-  <script src="supabase-config.js?v=galaxy-a07-prices-00-1"></script>
-  <script src="script.js?v=galaxy-a07-prices-00-1"></script>
+  <script src="supabase-config.js?v=required-order-details-3"></script>
+  <script src="script.js?v=required-order-details-3"></script>
 </body>
 </html>

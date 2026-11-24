@@ -67,10 +67,18 @@ const cartItems = document.querySelector("#cart-items");
 const cartCount = document.querySelector("#cart-count");
 const headerCartCount = document.querySelector("#header-cart-count");
 const cartItemCount = document.querySelector("#cart-item-count");
+const cartDeliveryFeeRow = document.querySelector("#cart-delivery-fee-row");
+const cartDeliveryFee = document.querySelector("#cart-delivery-fee");
 const cartTotalAmount = document.querySelector("#cart-total-amount");
 const whatsappOrder = document.querySelector("#whatsapp-order");
 const emailOrder = document.querySelector("#email-order");
 const cartOrderNote = document.querySelector("#cart-order-note");
+const orderDetailsForm = document.querySelector("#order-details-form");
+const orderName = document.querySelector("#order-name");
+const orderPhone = document.querySelector("#order-phone");
+const orderAddress = document.querySelector("#order-address");
+const orderDistrict = document.querySelector("#order-district");
+const deliveryFee = 350;
 
 function formatPrice(amount) {
   return amount.toLocaleString("en-LK", {
@@ -99,18 +107,35 @@ function getTotalItems() {
   return Array.from(cart.values()).reduce((total, quantity) => total + quantity, 0);
 }
 
-function getTotalPrice() {
+function getProductsTotal() {
   return Array.from(cart.entries()).reduce((total, [productId, quantity]) => {
     return total + products[productId].price * quantity;
   }, 0);
 }
 
-function getOrderMessage() {
+function getTotalPrice() {
+  return getProductsTotal() + (getTotalItems() > 0 ? deliveryFee : 0);
+}
+
+function getOrderMessage(customer) {
   const orderLines = Array.from(cart.entries()).map(([productId, quantity]) => {
     const product = products[productId];
     return `- ${product.name} (${product.specification}) x ${quantity}: LKR ${formatPrice(product.price * quantity)}`;
   });
-  return `Hello NCL Solutions, I would like to place an order:\n\n${orderLines.join("\n")}\n\nTotal: LKR ${formatPrice(getTotalPrice())}`;
+  return [
+    "Hello NCL Solutions, I would like to place an order:",
+    "",
+    `Name: ${customer.name}`,
+    `Phone: ${customer.phone}`,
+    `Area / district: ${customer.district}`,
+    `Delivery address: ${customer.address}`,
+    "",
+    ...orderLines,
+    "",
+    `Items subtotal: LKR ${formatPrice(getProductsTotal())}`,
+    `Delivery fee: LKR ${formatPrice(deliveryFee)}`,
+    `Total: LKR ${formatPrice(getTotalPrice())}`
+  ].join("\n");
 }
 
 function renderCart() {
@@ -118,20 +143,22 @@ function renderCart() {
   cartCount.textContent = totalItems;
   headerCartCount.textContent = totalItems;
   cartItemCount.textContent = totalItems;
+  cartDeliveryFeeRow.hidden = totalItems === 0;
+  cartDeliveryFee.textContent = `LKR ${formatPrice(deliveryFee)}`;
   cartTotalAmount.textContent = `LKR ${formatPrice(getTotalPrice())}`;
   headerCart.classList.toggle("has-items", totalItems > 0);
   cartItems.replaceChildren();
+  orderDetailsForm.hidden = totalItems === 0;
   whatsappOrder.hidden = totalItems === 0;
   emailOrder.hidden = totalItems === 0;
+  whatsappOrder.disabled = totalItems === 0;
+  emailOrder.disabled = totalItems === 0;
   cartOrderNote.hidden = totalItems === 0;
-
-  if (totalItems > 0) {
-    const message = getOrderMessage();
-    whatsappOrder.href = `https://wa.me/94779273876?text=${encodeURIComponent(message)}`;
-    emailOrder.href = `mailto:lakshancreations26@gmail.com?subject=${encodeURIComponent("Order from NCL Solutions")}&body=${encodeURIComponent(message)}`;
-  }
+  cartOrderNote.textContent = `Delivery is LKR ${formatPrice(deliveryFee)} per order for all districts. Google Maps location access is not required.`;
 
   if (totalItems === 0) {
+    orderDetailsForm.reset();
+    requiredOrderInputs.forEach((input) => input.setCustomValidity(""));
     const emptyState = document.createElement("div");
     emptyState.className = "cart-empty";
     emptyState.innerHTML = "<span>0</span><p>Your cart is empty</p>";
@@ -199,6 +226,36 @@ productAddButtons.forEach((button) => {
     openCart();
   });
 });
+
+const requiredOrderInputs = [orderName, orderPhone, orderAddress];
+requiredOrderInputs.forEach((input) => {
+  input.addEventListener("input", () => {
+    input.setCustomValidity(input.value.trim() ? "" : "Please enter a valid value.");
+  });
+});
+
+function submitOrder(channel) {
+  requiredOrderInputs.forEach((input) => {
+    input.setCustomValidity(input.value.trim() ? "" : "Please enter a valid value.");
+  });
+  if (!orderDetailsForm.reportValidity()) return;
+
+  const customer = {
+    name: orderName.value.trim(),
+    phone: orderPhone.value.trim(),
+    address: orderAddress.value.trim(),
+    district: orderDistrict.value
+  };
+  const message = getOrderMessage(customer);
+  if (channel === "whatsapp") {
+    window.open(`https://wa.me/94779273876?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  } else {
+    window.location.href = `mailto:lakshancreations26@gmail.com?subject=${encodeURIComponent("Order from NCL Solutions")}&body=${encodeURIComponent(message)}`;
+  }
+}
+
+whatsappOrder.addEventListener("click", () => submitOrder("whatsapp"));
+emailOrder.addEventListener("click", () => submitOrder("email"));
 
 const reviewForm = document.querySelector("#review-form");
   const reviewComment = document.querySelector("#review-comment");
