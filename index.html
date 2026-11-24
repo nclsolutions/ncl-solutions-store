@@ -52,27 +52,65 @@
           <article class="category-card">
             <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy">
             <h3>Smartphones</h3>
+            <button class="add-to-cart" type="button" data-name="Smartphones">Add to cart</button>
           </article>
           <article class="category-card">
             <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy">
             <h3>Tablets</h3>
+            <button class="add-to-cart" type="button" data-name="Tablets">Add to cart</button>
           </article>
           <article class="category-card">
             <img src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy">
             <h3>Smartwatches</h3>
+            <button class="add-to-cart" type="button" data-name="Smartwatches">Add to cart</button>
           </article>
           <article class="category-card">
             <img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy">
             <h3>Audio &amp; Earbuds</h3>
+            <button class="add-to-cart" type="button" data-name="Audio & Earbuds">Add to cart</button>
           </article>
           <article class="category-card">
             <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=640&q=80" alt="" loading="lazy">
             <h3>Phone Accessories</h3>
+            <button class="add-to-cart" type="button" data-name="Phone Accessories">Add to cart</button>
           </article>
         </div>
       </div>
     </section>
   </main>
+
+  <aside class="cart-drawer" id="cart-drawer" aria-hidden="true" aria-label="Your cart">
+    <div class="cart-drawer-header">
+      <div>
+        <p class="cart-eyebrow">YOUR SELECTION</p>
+        <h2>Order summary</h2>
+      </div>
+      <button class="cart-close" id="cart-close" type="button" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Items</span>
+        <strong id="cart-item-count">0</strong>
+      </div>
+      <button class="checkout-button" id="checkout-button" type="button" disabled>View order</button>
+    </div>
+  </aside>
+  <button class="bottom-cart" id="bottom-cart" type="button" aria-controls="cart-drawer" aria-expanded="false">
+    <span class="bottom-cart-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 7H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+        <circle cx="9.5" cy="19" r="1.5" fill="currentColor"></circle>
+        <circle cx="17.5" cy="19" r="1.5" fill="currentColor"></circle>
+      </svg>
+      <span class="cart-count" id="cart-count">0</span>
+    </span>
+    <span class="bottom-cart-copy">
+      <small>My Cart</small>
+      <strong><span id="bottom-cart-count">0</span> item(s)</strong>
+    </span>
+  </button>
+  <div class="cart-backdrop" id="cart-backdrop" hidden></div>
   <script src="script.js"></script>
 </body>
 </html>
