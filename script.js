@@ -110,6 +110,11 @@ const products = {
     name: "Samsung Galaxy A17 5G",
     specification: "8 GB RAM / 256 GB storage",
     price: 119990
+  },
+  "galaxy-a37-5g-8-256": {
+    name: "Samsung Galaxy A37 5G",
+    specification: "8 GB RAM / 256 GB storage",
+    price: 171990
   }
 };
 const cart = new Map();
