@@ -29,12 +29,29 @@ body {
   position: absolute;
   top: -20px;
   left: var(--left);
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, var(--opacity));
+  font-size: var(--size);
+  line-height: 1;
+  text-shadow: 0 0 5px rgba(255, 255, 255, .6);
+  animation: snowfall var(--duration) linear var(--delay) infinite;
+  will-change: transform;
+}
+.snowflake-dot {
   width: var(--size);
   height: var(--size);
   border-radius: 50%;
   background: rgba(255, 255, 255, var(--opacity));
   box-shadow: 0 0 5px rgba(255, 255, 255, .55);
-  animation: snowfall var(--duration) linear var(--delay) infinite;
+  font-size: 0;
+}
+.snowflake-crystal {
+  width: calc(var(--size) * .85);
+  height: calc(var(--size) * .85);
+  transform-origin: center;
+  border: 1px solid rgba(255, 255, 255, var(--opacity));
+  transform: rotate(45deg);
 }
 @keyframes snowfall {
   0% { transform: translate3d(0, -20px, 0) rotate(0deg); }
