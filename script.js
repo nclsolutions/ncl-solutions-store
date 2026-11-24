@@ -494,27 +494,17 @@ renderCart();
 
 const snowfall = document.querySelector("#snowfall");
 if (snowfall) {
-  const snowflakeCount = window.matchMedia("(max-width: 560px)").matches ? 45 : 75;
+  const snowflakeCount = window.matchMedia("(max-width: 560px)").matches ? 35 : 55;
   for (let index = 0; index < snowflakeCount; index += 1) {
     const flake = document.createElement("span");
     flake.className = "snowflake";
     flake.style.setProperty("--left", `${Math.random() * 100}%`);
-    flake.style.setProperty("--size", `${4 + Math.random() * 10}px`);
+    flake.style.setProperty("--size", `${8 + Math.random() * 11}px`);
     flake.style.setProperty("--opacity", `${0.45 + Math.random() * 0.5}`);
     flake.style.setProperty("--duration", `${8 + Math.random() * 13}s`);
     flake.style.setProperty("--delay", `${-Math.random() * 18}s`);
     flake.style.setProperty("--drift", `${-75 + Math.random() * 150}px`);
-
-    const style = index % 4;
-    if (style === 0) {
-      flake.textContent = "\u2744";
-    } else if (style === 1) {
-      flake.textContent = "\u2733";
-    } else if (style === 2) {
-      flake.classList.add("snowflake-dot");
-    } else {
-      flake.classList.add("snowflake-crystal");
-    }
+    flake.textContent = index % 3 === 0 ? "\u2744" : "\u2733";
     snowfall.appendChild(flake);
   }
 }

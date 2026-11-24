@@ -38,21 +38,6 @@ body {
   animation: snowfall var(--duration) linear var(--delay) infinite;
   will-change: transform;
 }
-.snowflake-dot {
-  width: var(--size);
-  height: var(--size);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, var(--opacity));
-  box-shadow: 0 0 5px rgba(255, 255, 255, .55);
-  font-size: 0;
-}
-.snowflake-crystal {
-  width: calc(var(--size) * .85);
-  height: calc(var(--size) * .85);
-  transform-origin: center;
-  border: 1px solid rgba(255, 255, 255, var(--opacity));
-  transform: rotate(45deg);
-}
 @keyframes snowfall {
   0% { transform: translate3d(0, -20px, 0) rotate(0deg); }
   50% { transform: translate3d(var(--drift), 52vh, 0) rotate(180deg); }
