@@ -20,6 +20,20 @@
           <span class="brand-tagline">YOUR TECH, YOUR WAY</span>
         </span>
       </a>
+      <button class="bottom-cart" id="bottom-cart" type="button" aria-controls="cart-drawer" aria-expanded="false">
+        <span class="bottom-cart-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 7H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+            <circle cx="9.5" cy="19" r="1.5" fill="currentColor"></circle>
+            <circle cx="17.5" cy="19" r="1.5" fill="currentColor"></circle>
+          </svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </span>
+        <span class="bottom-cart-copy">
+          <small>My Cart</small>
+          <strong><span id="bottom-cart-count">0</span> item(s)</strong>
+        </span>
+      </button>
     </div>
   </header>
 
@@ -96,20 +110,6 @@
       <button class="checkout-button" id="checkout-button" type="button" disabled>View order</button>
     </div>
   </aside>
-  <button class="bottom-cart" id="bottom-cart" type="button" aria-controls="cart-drawer" aria-expanded="false">
-    <span class="bottom-cart-icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 7H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
-        <circle cx="9.5" cy="19" r="1.5" fill="currentColor"></circle>
-        <circle cx="17.5" cy="19" r="1.5" fill="currentColor"></circle>
-      </svg>
-      <span class="cart-count" id="cart-count">0</span>
-    </span>
-    <span class="bottom-cart-copy">
-      <small>My Cart</small>
-      <strong><span id="bottom-cart-count">0</span> item(s)</strong>
-    </span>
-  </button>
   <div class="cart-backdrop" id="cart-backdrop" hidden></div>
   <script src="script.js"></script>
 </body>
