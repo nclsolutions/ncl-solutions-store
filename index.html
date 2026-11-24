@@ -97,6 +97,54 @@
         </div>
       </div>
     </section>
+
+    <section class="reviews-section" aria-labelledby="reviews-heading">
+      <div class="reviews-inner">
+        <div class="reviews-heading">
+          <div>
+            <p class="categories-eyebrow">YOUR FEEDBACK MATTERS</p>
+            <h2 id="reviews-heading">Customer reviews</h2>
+            <p>Share your experience with NCL Solutions.</p>
+          </div>
+          <div class="reviews-summary" aria-live="polite">
+            <strong class="reviews-average" id="reviews-average">—</strong>
+            <div>
+              <span class="reviews-average-stars" id="reviews-average-stars" aria-label="No ratings yet">☆☆☆☆☆</span>
+              <span class="reviews-total" id="reviews-total">No reviews yet</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="reviews-layout">
+          <form class="review-form" id="review-form">
+            <h3>Leave a review</h3>
+            <fieldset class="rating-fieldset">
+              <legend>Your rating</legend>
+              <div class="rating-picker" role="group" aria-label="Choose a rating from one to five stars">
+                <button class="rating-star" type="button" data-rating="1" aria-label="1 star" aria-pressed="false">★</button>
+                <button class="rating-star" type="button" data-rating="2" aria-label="2 stars" aria-pressed="false">★</button>
+                <button class="rating-star" type="button" data-rating="3" aria-label="3 stars" aria-pressed="false">★</button>
+                <button class="rating-star" type="button" data-rating="4" aria-label="4 stars" aria-pressed="false">★</button>
+                <button class="rating-star" type="button" data-rating="5" aria-label="5 stars" aria-pressed="false">★</button>
+              </div>
+            </fieldset>
+            <label class="review-comment-label" for="review-comment">Your comment</label>
+            <textarea id="review-comment" name="comment" rows="4" minlength="3" maxlength="500" required placeholder="Tell others about your experience..."></textarea>
+            <div class="review-form-footer">
+              <span id="review-character-count">0 / 500</span>
+              <button class="review-submit" id="review-submit" type="submit">Submit review</button>
+            </div>
+            <p class="review-form-status" id="review-form-status" role="status"></p>
+          </form>
+
+          <div class="review-list-panel">
+            <h3>What customers say</h3>
+            <p class="reviews-load-status" id="reviews-load-status" role="status" aria-live="polite">Loading reviews...</p>
+            <div class="review-list" id="review-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <aside class="cart-drawer" id="cart-drawer" aria-hidden="true" aria-label="Your cart">
@@ -117,6 +165,7 @@
     </div>
   </aside>
   <div class="cart-backdrop" id="cart-backdrop" hidden></div>
+  <script src="supabase-config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
