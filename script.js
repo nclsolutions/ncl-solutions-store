@@ -15,13 +15,14 @@ const brandEmptyMessage = document.querySelector("#brand-empty-message");
 const phoneProductGrid = document.querySelector("#phone-product-grid");
 const backToPhoneBrandsButton = document.querySelector("#back-to-phone-brands");
 const caseBrandList = document.querySelector("#case-brand-list");
-const samsungCaseBrandButton = document.querySelector("#samsung-case-brand");
+let caseBrandButtons = [];
 const caseBrandProducts = document.querySelector("#case-brand-products");
 const selectedCaseBrandHeading = document.querySelector("#selected-case-brand-heading");
 const caseProductGrid = document.querySelector("#case-product-grid");
 const backToCaseBrandsButton = document.querySelector("#back-to-case-brands");
 const productAddButtons = Array.from(document.querySelectorAll("button.product-add-button"));
 let selectedBrandButton = null;
+let selectedCaseBrandButton = null;
 
 if (!categorySearch || !categoryGrid || !emptyMessage) {
   throw new Error("Category search elements are required.");
@@ -29,43 +30,206 @@ if (!categorySearch || !categoryGrid || !emptyMessage) {
 
 const categoryCards = categoryGrid.querySelectorAll(".category-card");
 const productCards = Array.from(phoneProductGrid.querySelectorAll(".product-card"));
-const samsungCaseModels = [
-  { name: "Galaxy A57 5G" },
-  { name: "Galaxy A37 5G" },
-  { name: "Galaxy A27 5G" },
-  { name: "Galaxy A17 5G" },
-  { name: "Galaxy A17 4G" },
-  { name: "Galaxy A36 5G" },
-  { name: "Galaxy A06 5G" },
-  { name: "Galaxy A07 4G" },
-  { name: "Galaxy A56 5G" },
-  { name: "Galaxy A26 5G" },
-  { name: "Galaxy M17" },
-  { name: "Galaxy S26" },
-  { name: "Galaxy S26+ 5G" },
-  { name: "Galaxy S26 Ultra" },
-  { name: "Galaxy S25" },
-  { name: "Galaxy S25+ 5G" },
-  { name: "Galaxy S25 FE 5G" },
-  { name: "Galaxy S25 Ultra" },
-  { name: "Galaxy Z Fold7 5G", stockOut: true },
-  { name: "Galaxy Z Flip7 5G" }
-];
+const caseCatalog = {
+  Apple: [
+    "iPhone 14",
+    "iPhone 15",
+    "iPhone 16",
+    "iPhone 16 Plus",
+    "iPhone 16 Pro",
+    "iPhone 16 Pro Max",
+    "iPhone 16e",
+    "iPhone 17",
+    "iPhone 17 Pro",
+    "iPhone 17 Pro Max",
+    "iPhone 17e",
+    "iPhone Air"
+  ],
+  Asus: ["ROG Phone 9 Pro", "Zenfone 12 Ultra"],
+  Blackview: ["Wave 10C"],
+  Google: [
+    "Pixel 7",
+    "Pixel 7 Pro",
+    "Pixel 8",
+    "Pixel 8a",
+    "Pixel 9",
+    "Pixel 9 Pro",
+    "Pixel 9 Pro XL",
+    "Pixel 9a",
+    "Pixel 10",
+    "Pixel 10 Pro",
+    "Pixel 10 Pro XL",
+    "Pixel 10a",
+    "Pixel 11"
+  ],
+  Honor: [
+    "200",
+    "200 Smart",
+    "400",
+    "400 Lite",
+    "400 Pro",
+    "600",
+    "600 Lite",
+    "600 Pro",
+    "Magic 6 Pro",
+    "Magic 7 Pro",
+    "Magic V5",
+    "Play 10",
+    "X5C",
+    "X5C Plus",
+    "X5d",
+    "X5d Plus",
+    "X6C",
+    "X7D 5G",
+    "X8C",
+    "X8D",
+    "X9D",
+    "X9E Pro"
+  ],
+  Huawei: ["Mate X6", "Nova 13", "Nova 13 Pro", "Pura 70 Pro"],
+  Infinix: [
+    "Hot 60i",
+    "Hot 60 Pro",
+    "Hot 60 Pro Plus",
+    "Note 60 5G",
+    "Note 60 Ultra 5G",
+    "Note Edge 5G",
+    "Smart 20"
+  ],
+  Itel: ["A200"],
+  KXD: ["K30"],
+  Motorola: [
+    "Edge 60",
+    "Edge 60 Fusion",
+    "Edge 60 Pro",
+    "Moto G56 5G",
+    "Moto G86 5G"
+  ],
+  Nokia: ["G42 5G", "X30 5G"],
+  Nothing: ["Phone 3", "Phone 3a", "Phone 3a Pro"],
+  OPPO: [
+    "A5 Pro 5G",
+    "A5x 5G",
+    "Reno14 5G",
+    "Reno14 F 5G",
+    "Reno14 Pro 5G"
+  ],
+  OnePlus: [
+    "13R",
+    "13S 5G",
+    "14R",
+    "15 5G",
+    "15R 5G",
+    "Nord 6",
+    "Nord CE6"
+  ],
+  POCO: ["F7", "F7 Pro", "F7 Ultra", "X7 5G", "X7 Pro 5G"],
+  Redmi: [
+    "15 4G",
+    "15 5G",
+    "15C 5G",
+    "A4 5G",
+    "Note 15 Pro 4G",
+    "Note 15 Pro 5G",
+    "Note 17",
+    "Note 17 4G",
+    "Note 17 5G",
+    "Note 17 Pro 5G",
+    "Note 17 Pro Max 5G"
+  ],
+  Realme: [
+    "14 5G",
+    "14 Pro 5G",
+    "14 Pro+ 5G",
+    "C75",
+    "GT 7 Pro"
+  ],
+  Samsung: [
+    "Galaxy A06 4G",
+    "Galaxy A07 4G",
+    "Galaxy A07 5G",
+    "Galaxy A07s",
+    "Galaxy A08",
+    "Galaxy A17 4G",
+    "Galaxy A17 5G",
+    "Galaxy A26 5G",
+    "Galaxy A27 5G",
+    "Galaxy A36 5G",
+    "Galaxy A37 5G",
+    "Galaxy A56 5G",
+    "Galaxy A57 5G",
+    "Galaxy F70e 5G",
+    "Galaxy M06 5G",
+    "Galaxy M17",
+    "Galaxy M17E 5G",
+    "Galaxy S24",
+    "Galaxy S25",
+    "Galaxy S25+",
+    "Galaxy S25 FE",
+    "Galaxy S25 Ultra",
+    "Galaxy S26",
+    "Galaxy S26+ 5G",
+    "Galaxy S26 FE",
+    "Galaxy S26 Ultra",
+    "Galaxy Z Flip6",
+    "Galaxy Z Flip7 5G",
+    "Galaxy Z Flip8 5G",
+    "Galaxy Z Fold7 5G",
+    "Galaxy Z Fold8 5G",
+    "Galaxy Z Fold8 Ultra 5G"
+  ],
+  Sony: ["Xperia 1 VII", "Xperia 10 VII"],
+  TCL: ["60 NXTPAPER", "60 SE"],
+  Tecno: [
+    "Camon 40",
+    "Camon 40 Pro 5G",
+    "Pova 7",
+    "Pova 7 Pro 5G",
+    "Spark 40"
+  ],
+  Xiaomi: [
+    "14 Ultra",
+    "15 Ultra 5G",
+    "17T",
+    "Note 15 Pro Plus 5G"
+  ],
+  Vivo: ["V50 5G", "V60 5G", "X200 FE", "Y29", "Y39 5G"],
+  ZTE: ["Blade A31 Lite", "Blade A5 2020", "Blade A36e", "Blade A56"]
+};
+const caseModels = Object.entries(caseCatalog).flatMap(([brand, models]) =>
+  models.map((name) => ({
+    brand,
+    name,
+    stockOut: brand === "Samsung" && name === "Galaxy Z Fold7 5G"
+  }))
+);
 
-samsungCaseModels.forEach((model) => {
+Object.keys(caseCatalog).sort((first, second) => first.localeCompare(second)).forEach((brand) => {
+  const button = document.createElement("button");
+  button.className = "phone-brand-button case-brand-button";
+  button.type = "button";
+  button.dataset.caseBrand = brand;
+  button.setAttribute("aria-controls", "case-brand-products");
+  button.setAttribute("aria-expanded", "false");
+  button.textContent = brand;
+  caseBrandList.appendChild(button);
+});
+caseBrandButtons = Array.from(caseBrandList.querySelectorAll(".case-brand-button"));
+
+caseModels.forEach((model) => {
   const card = document.createElement("article");
   card.className = "product-card";
-  card.dataset.brand = "Samsung";
+  card.dataset.brand = model.brand;
 
   const image = document.createElement("img");
   image.src = "assets/phone-cases.jpg";
-  image.alt = `Samsung ${model.name} back-cover styles`;
+  image.alt = `${model.brand} ${model.name} back-cover styles`;
 
   const details = document.createElement("div");
   details.className = "product-card-details";
   const eyebrow = document.createElement("p");
   eyebrow.className = "product-card-eyebrow";
-  eyebrow.textContent = "SAMSUNG BACK COVER";
+  eyebrow.textContent = `${model.brand.toUpperCase()} BACK COVER`;
   const stockStatus = document.createElement("p");
   stockStatus.className = "product-stock-status";
   stockStatus.textContent = "Stock Out";
@@ -74,13 +238,13 @@ samsungCaseModels.forEach((model) => {
   name.textContent = model.name;
   const specification = document.createElement("p");
   specification.className = "product-specification";
-  specification.textContent = `Back cover made for Samsung ${model.name}`;
+  specification.textContent = `Back cover made for ${model.brand} ${model.name}`;
   const price = document.createElement("p");
   price.className = "product-price";
   price.textContent = "LKR 500–1,000";
   const enquiry = document.createElement("a");
   enquiry.className = "product-add-button";
-  enquiry.href = `https://wa.me/94779273876?text=${encodeURIComponent(`Hi, I’m interested in a Samsung ${model.name} back cover. Please confirm the available styles and exact price.`)}`;
+  enquiry.href = `https://wa.me/94779273876?text=${encodeURIComponent(`Hi, I’m interested in a ${model.brand} ${model.name} back cover. Please confirm the available styles and exact price.`)}`;
   enquiry.target = "_blank";
   enquiry.rel = "noopener noreferrer";
   enquiry.textContent = "Enquire on WhatsApp";
@@ -116,7 +280,8 @@ function resetCaseBrandSelection() {
   caseBrandProducts.hidden = true;
   caseProductGrid.hidden = false;
   selectedCaseBrandHeading.textContent = "";
-  samsungCaseBrandButton.setAttribute("aria-expanded", "false");
+  caseBrandButtons.forEach((button) => button.setAttribute("aria-expanded", "false"));
+  selectedCaseBrandButton = null;
 }
 
 function setCasesCoversOpen(isOpen) {
@@ -175,7 +340,7 @@ categorySearch.addEventListener("input", () => {
     casesCoversCategory.setAttribute("aria-expanded", "true");
     caseBrandList.hidden = true;
     caseBrandProducts.hidden = false;
-    selectedCaseBrandHeading.textContent = "Samsung back-cover search results";
+    selectedCaseBrandHeading.textContent = "Back-cover search results";
   } else {
     resetCaseBrandSelection();
     if (query) setCasesCoversOpen(false);
@@ -204,18 +369,24 @@ casesCoversCategory.addEventListener("keydown", (event) => {
   }
 });
 closeCasesCoversButton.addEventListener("click", () => setCasesCoversOpen(false));
-samsungCaseBrandButton.addEventListener("click", () => {
+caseBrandList.addEventListener("click", (event) => {
+  const button = event.target.closest(".case-brand-button");
+  if (!button) return;
+
+  selectedCaseBrandButton = button;
+  const brand = button.dataset.caseBrand;
   caseBrandList.hidden = true;
   caseBrandProducts.hidden = false;
-  selectedCaseBrandHeading.textContent = "Samsung back covers";
-  samsungCaseBrandButton.setAttribute("aria-expanded", "true");
-  caseProductGrid.querySelectorAll(".product-card").forEach((card) => {
-    card.hidden = false;
+  selectedCaseBrandHeading.textContent = `${brand} back covers`;
+  button.setAttribute("aria-expanded", "true");
+  caseProductCards.forEach((card) => {
+    card.hidden = card.dataset.brand !== brand;
   });
 });
 backToCaseBrandsButton.addEventListener("click", () => {
+  const previousBrandButton = selectedCaseBrandButton;
   resetCaseBrandSelection();
-  samsungCaseBrandButton.focus();
+  if (previousBrandButton) previousBrandButton.focus();
 });
 
 phoneBrandList.addEventListener("click", (event) => {
